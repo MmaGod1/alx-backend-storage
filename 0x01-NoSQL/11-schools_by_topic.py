@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Where can I learn Python?
+Find school matching topics
 """
 import pymongo
 
 
 def schools_by_topic(mongo_collection, topic):
     """
-    find by specific value
+    returns the list of school having a specific topic:
     """
-    return mongo_collection.find({"topics":  {"$in": [topic]}})
+    return list(mongo_collection.find({"topics":  topic}))
