@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Insert a document in Python
+Insert a new document
 """
 import pymongo
 
@@ -9,5 +9,5 @@ def insert_school(mongo_collection, **kwargs):
     """
     insert a documents into a collection
     """
-    data = mongo_collection.insert_one(kwargs)
-    return data.inserted_id
+    doc = mongo_collection.insert_one(kwargs)
+    return doc.inserted_id
