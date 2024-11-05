@@ -5,11 +5,23 @@ import uuid
 from typing import Union, Callable, Optional
 
 
+def count_calls(method: Callable) -> Callable:
+    """Decorator that would count how many times a method is called."""
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+
 class Cache:
     """Store an instance of the Redis client as a private."""
     def __init__(self):
         self._redis = redis.Redis()
         self._redis.flushdb()
+
+    @count_calls
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Takes a data argument and returns a string."""
