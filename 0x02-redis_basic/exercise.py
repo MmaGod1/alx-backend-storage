@@ -30,20 +30,20 @@ class Cache:
         return key
 
     def get(self, key: str,
-           fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """
-           Take a key string argument and an optional Callable argument named fn.
-           This callable will be used to convert the data back to the desired format.
+            Take a key string and an optional Callable argument named fn.
+            The callable will be used to convert the data to a desired format.
         """
         value = self._redis.get(key)
         if fn:
             return fn(value)
         return value
-               
+
     def get_str(self, key: str) -> str:
-      """Automatically parametrize Cache.get to a str."""
-      return self._redis.get(key).decode("utf-8")
-        
+        """Automatically parametrize Cache.get to a str."""
+        return self._redis.get(key).decode("utf-8")
+
     def get_int(self, key: int) -> int:
-      """Automatically parametrize Cache.get to an int"""
-      return self.get(key, fn=int)
+        """Automatically parametrize Cache.get to an int"""
+        return self.get(key, fn=int)
