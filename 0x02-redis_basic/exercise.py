@@ -17,7 +17,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-   def get(self, key: str,
+    def get(self, key: str,
            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """Take a key string argument and an optional Callable argument named fn.
         This callable will be used to convert the data back to the desired format."""
@@ -25,11 +25,11 @@ class Cache:
         if fn:
             return fn(value)
         return value
-
-  def get_str(self, key: str) -> str:
+               
+    def get_str(self, key: str) -> str:
       """Automatically parametrize Cache.get to a str."""
       return self._redis.get(key).decode("utf-8")
-
-  def get_int(self, key: int) -> int:
+        
+    def get_int(self, key: int) -> int:
       """Automatically parametrize Cache.get to an int"""
       return self.get(key, fn=int)
