@@ -23,7 +23,6 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
-
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Takes a data argument and returns a string."""
         key = str(uuid.uuid4())
@@ -32,8 +31,10 @@ class Cache:
 
     def get(self, key: str,
            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
-        """Take a key string argument and an optional Callable argument named fn.
-        This callable will be used to convert the data back to the desired format."""
+        """
+           Take a key string argument and an optional Callable argument named fn.
+           This callable will be used to convert the data back to the desired format.
+        """
         value = self._redis.get(key)
         if fn:
             return fn(value)
