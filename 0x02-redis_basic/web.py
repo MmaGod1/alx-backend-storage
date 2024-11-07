@@ -9,6 +9,7 @@ from functools import wraps
 def page_decor(func: Callable) -> Callable:
     """A decorator tracking how manny times a url is accessed."""
     connect = redis.Redis()
+    connect.flushdb()
 
     @wraps(func)
     def wrapper(*args, **kwargs):
