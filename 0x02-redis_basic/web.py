@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""An expiring web cache and tracker."""
 import redis
 from typing import Callable
 import requests
@@ -8,6 +10,7 @@ import time
 connect = redis.Redis()
 
 def page_decor(func: Callable) -> Callable:
+    """A decorator tracking how manny times a url is accessed."""
     @wraps(func)
     def wrapper(*args, **kwargs):
         url = args[0]  # Assuming the first argument is the URL
@@ -32,6 +35,7 @@ def page_decor(func: Callable) -> Callable:
 
 @page_decor
 def get_page(url: str) -> str:
+    """Requests for a page"""
     page = requests.get(url)
     return page.text
 
