@@ -40,9 +40,10 @@ def get_page(url: str) -> str:
     page = requests.get(url)
     return page.text
 
-
+"""
 # Call the decorated function
 try1 = get_page('http://slowwly.robertomurray.co.uk')
 
 # Print the page content (this is just for testing)
 print(try1)
+"""
