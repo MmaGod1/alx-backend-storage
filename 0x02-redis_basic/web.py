@@ -4,8 +4,8 @@ import redis
 import requests
 from functools import wraps
 
-
 r = redis.Redis(host='localhost', port=6379, db=0)
+
 
 def cache_page(func):
     """
@@ -25,6 +25,7 @@ def cache_page(func):
 
         return page
     return wrapper
+
 
 @cache_page
 def get_page(url: str) -> str:
