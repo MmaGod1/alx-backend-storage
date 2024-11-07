@@ -2,11 +2,12 @@ import redis
 from typing import Callable
 import requests
 from functools import wraps
+import time
 
-
+# Redis connection is now accessible globally
 connect = redis.Redis()
-def page_decor(func: Callable) -> Callable:
 
+def page_decor(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
         url = args[0]  # Assuming the first argument is the URL
@@ -34,8 +35,21 @@ def get_page(url: str) -> str:
     page = requests.get(url)
     return page.text
 
-# Call the decorated function
-if connect.exists(url_page_count):
-    print(f"Redis count for URL still exists: {connect.get(url_page_count)}")
-else:
-    print("Redis count for URL has expired and is no longer cached.")
+# Call the decorated function once
+get_page('http://slowwly.robertomurray.co.uk')
+
+# Function to check if the URL count is still cached in Redis
+def check_cache(url: str) -> None:
+    url_page_count = f"count:{url}"
+    
+    # Check if the key still exists in Redis
+    if connect.exists(url_page_count):
+        print(f"Redis count for URL still exists: {connect.get(url_page_count)}")
+    else:
+        print("Redis count for URL has expired and is no longer cached.")
+
+# Wait for 10 seconds before checking
+time.sleep(10)  # You can manually wait 10 seconds or call this check after the delay
+
+# Check cache after 10 seconds
+check_cache('http://slowwly.robertomurray.co.uk')
