@@ -33,14 +33,16 @@ def get_page(url: str) -> str:
     page = requests.get(url)
     return page.text
 
-
 # Call the decorated function
 try1 = get_page('http://slowwly.robertomurray.co.uk')
 
 # Print the page content
 print(try1)
 
-# Check the count in Redis for testing (optional, to verify it's incremented)
+# Debugging: Check the count in Redis for testing (optional, to verify it's incremented)
 connect = redis.Redis()
-url_page_count = "count:http://google.com"
+url_page_count = "count:http://slowwly.robertomurray.co.uk"
+
+# Print the current count value in Redis
+print(f"Redis count for URL: {url_page_count}")
 print(connect.get(url_page_count))  # Should print the incremented count
