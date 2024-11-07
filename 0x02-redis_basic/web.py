@@ -9,7 +9,6 @@ from functools import wraps
 def page_decor(func: Callable) -> Callable:
     """A decorator tracking how manny times a url is accessed."""
     connect = redis.Redis()
-    connect.flushdb()
 
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -29,6 +28,7 @@ def page_decor(func: Callable) -> Callable:
         print(f"URL access count for {url}: {count}")
         print(f"List of accessed URLs: {connect.lrange(url_page_list, 0, -1)}")
 
+        # Return the page content
         return func(*args, **kwargs)  # Call the decorated function
 
     return wrapper
@@ -36,9 +36,10 @@ def page_decor(func: Callable) -> Callable:
 
 @page_decor
 def get_page(url: str) -> str:
-    """Requests for a page"""
+        """Requests for a page"""
     page = requests.get(url)
     return page.text
+
 
 """
 # Call the decorated function
