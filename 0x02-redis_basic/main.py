@@ -27,3 +27,9 @@ print(cache.get(cache.store.__qualname__))
 cache.store(b"second")
 cache.store(b"third")
 print(cache.get(cache.store.__qualname__))
+
+cache.store("foo")
+cache.store("bar")
+cache.store(42)
+replay(cache.store)
+
