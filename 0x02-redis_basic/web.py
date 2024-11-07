@@ -19,8 +19,8 @@ def cache_page(func):
             return cached_page.decode('utf-8')
         
         page = func(url)
-        r.setex(cache_key, 10, page)
-        r.incr(f"count:{url}")
+        r.setex(cache_key, 10, page)  # Cache with 10-second expiration
+        r.incr(f"count:{url}")  # Increment the access count
         
         return page
     return wrapper
