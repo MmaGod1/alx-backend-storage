@@ -35,21 +35,23 @@ def replay(method: Callable):
     """Display the history of calls for a particular function."""
     # Get the cache instance
     cache_instance = method.__self__
-    
-    # Retrieve the input and output keys
+
     input_key = f"{method.__qualname__}:inputs"
     output_key = f"{method.__qualname__}:outputs"
-    
+
     # Retrieve the inputs and outputs from Redis
     inputs = cache_instance._redis.lrange(input_key, 0, -1)
     outputs = cache_instance._redis.lrange(output_key, 0, -1)
-    
+
     # Display the history
     print(f"{method.__qualname__} was called {len(inputs)} times:")
-    
+
     # Loop through inputs and outputs, using zip to pair them
     for input_data, output_data in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input_data.decode()}) -> {output_data.decode()}")
+        input_str = f"{method.__qualname__}(*{input_data.decode()})"
+        output_str = output_data.decode()
+        print(f"{input_str} -> {output_str}")
+
 
 class Cache:
     """Store an instance of the Redis client as a private."""
