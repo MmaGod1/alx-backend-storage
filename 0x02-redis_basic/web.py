@@ -39,6 +39,7 @@ def get_page(url: str) -> str:
     page = requests.get(url)
     return page.text
 
+"""
 # Call the decorated function once
 get_page('http://slowwly.robertomurray.co.uk')
 
@@ -57,3 +58,4 @@ time.sleep(10)  # You can manually wait 10 seconds or call this check after the 
 
 # Check cache after 10 seconds
 check_cache('http://slowwly.robertomurray.co.uk')
+"""
