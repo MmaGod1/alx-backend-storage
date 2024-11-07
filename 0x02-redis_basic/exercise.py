@@ -45,8 +45,7 @@ def replay(method: Callable):
 
     # Using zip to pair input to output and display
     for input_data, output_data in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{tuple(input_data.decode()
-                                              for input_data in input_data.split(b','))}) -> {output_data.decode()}")
+        print(f"{method.__qualname__}(*{tuple(input_data.decode() for input_data in input_data.split(b','))}) -> {output_data.decode()}")
 
 
 class Cache:
