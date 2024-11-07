@@ -43,7 +43,7 @@ def get_page(url: str) -> str:
     page = requests.get(url)
     return page.text
 
-# Call the decorated function
+"""# Call the decorated function
 get_page('http://slowwly.robertomurray.co.uk')
 
 # Function to check if the URL count is still cached in Redis
@@ -62,3 +62,4 @@ time.sleep(10)
 
 # Check cache after 10 seconds
 check_cache('http://slowwly.robertomurray.co.uk')
+"""
