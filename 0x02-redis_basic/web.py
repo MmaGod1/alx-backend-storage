@@ -3,8 +3,9 @@ from typing import Callable
 import requests
 from functools import wraps
 
+
+connect = redis.Redis()
 def page_decor(func: Callable) -> Callable:
-    connect = redis.Redis()
 
     @wraps(func)
     def wrapper(*args, **kwargs):
